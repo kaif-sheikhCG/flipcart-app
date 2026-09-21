@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FlipCart – Products</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        /* ---- Global reset & typography ---- */
+        *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+        body { font-family: Arial, Helvetica, sans-serif; background:#f5f5f5; color:#212121; }
+
+        /* ---- Header (logo + search) ---- */
+        .header {
+            background:#2874f0;
+            color:#fff;
+            padding:12px 20px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+        .logo { font-size:1.5rem; font-weight:bold; }
+        .search-box {
+            flex:1;
+            max-width:500px;
+            margin:0 20px;
+        }
+        .search-box input {
+            width:100%;
+            padding:8px 12px;
+            border:none;
+            border-radius:2px;
+        }
+
+        /* ---- Main grid of product cards ---- */
+        .grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+            gap:20px;
+            padding:20px;
+        }
+        .card {
+            background:#fff;
+            border-radius:4px;
+            overflow:hidden;
+            box-shadow:0 2px 4px rgba(0,0,0,.1);
+            text-align:center;
+            transition:transform .2s;
+        }
+        .card:hover { transform:scale(1.02); }
+        .card img { width:100%; height:180px; object-fit:cover; }
+        .card .title { padding:10px; font-size:0.95rem; height:48px; overflow:hidden; }
+        .card .price { color:#b12704; font-weight:bold; margin-bottom:10px; }
+
+        /* ---- Footer ---- */
+        .footer {
+            background:#212121;
+            color:#bbb;
+            text-align:center;
+            padding:20px;
+            font-size:0.9rem;
+        }
+
+        /* ---- Responsive tweaks ---- */
+        @media (max-width:480px) {
+            .header { flex-direction:column; align-items:flex-start; }
+            .search-box { margin:10px 0; width:100%; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">FlipCart</div>
+    <div class="search-box">
+        <input type="text" placeholder="Search for products, brands and more…">
+    </div>
+</header>
+
+<main class="grid">
+    <!-- Repeat this block for each product -->
+    <a href="product.html" class="card">
+        <img src="https://picsum.photos/300/200?random=1" alt="Product 1">
+        <div class="title">Wireless Bluetooth Headphones</div>
+        <div class="price">₹1,299</div>
+    </a>
+
+    <a href="product.html" class="card">
+        <img src="https://picsum.photos/300/200?random=2" alt="Product 2">
+        <div class="title">Smart Fitness Band with Heart Rate Monitor</div>
+        <div class="price">₹1,899</div>
+    </a>
+
+    <a href="product.html" class="card">
+        <img src="https://picsum.photos/300/200?random=3" alt="Product 3">
+        <div class="title">Portable Power Bank 10000 mAh</div>
+        <div class="price">₹999</div>
+    </a>
+
+    <a href="product.html" class="card">
+        <img src="https://picsum.photos/300/200?random=4" alt="Product 4">
+        <div class="title">USB‑C Hub (4‑Port)</div>
+        <div class="price">₹849</div>
+    </a>
+
+    <a href="product.html" class="card">
+        <img src="https://picsum.photos/300/200?random=5" alt="Product 5">
+        <div class="title">LED Desk Lamp with Adjustable Brightness</div>
+        <div class="price">₹699</div>
+    </a>
+
+    <a href="product.html" class="card">
+        <img src="https://picsum.photos/300/200?random=6" alt="Product 6">
+        <div class="title">Stainless Steel Water Bottle – 750 ml</div>
+        <div class="price">₹549</div>
+    </a>
+    <!-- … add more cards as needed … -->
+</main>
+
+<footer class="footer">
+    © 2026 FlipCart. All rights reserved.
+</footer>
+
+</body>
+</html>
