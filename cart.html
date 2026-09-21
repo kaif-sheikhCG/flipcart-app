@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | Flipkart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f1f3f6;
+        }
+        /* Custom scrollbar to match Flipkart's clean look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+        .f-assured-badge {
+            background: url('https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/fa_62673a.png') no-repeat;
+            background-size: contain;
+            width: 55px;
+            height: 15px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body class="text-[#212121] antialiased pb-20 md:pb-0">
+
+    <!-- Header -->
+    <header class="bg-[#2874f0] h-[56px] flex items-center justify-center sticky top-0 z-50">
+        <div class="max-w-[1248px] w-full px-4 flex items-center justify-between md:justify-start gap-4 md:gap-8">
+            
+            <!-- Logo -->
+            <div class="flex flex-col items-end shrink-0 cursor-pointer md:ml-12">
+                <span class="text-white font-bold text-[20px] italic tracking-tight leading-none">Flipkart</span>
+                <span class="text-white text-[11px] hover:underline flex items-center gap-1 mt-0.5">
+                    Explore <span class="text-[#ffe500] font-medium">Plus</span>
+                    <img width="10" src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/plus_aef861.png" alt="plus">
+                </span>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="hidden md:flex flex-1 max-w-[500px] relative shadow-sm">
+                <input type="text" placeholder="Search for products, brands and more" 
+                       class="w-full px-4 py-2 rounded-sm text-sm outline-none placeholder-gray-500 text-black shadow-[0_2px_4px_0_rgba(0,0,0,.23)]">
+                <button class="absolute right-0 top-0 h-full px-4 text-[#2874f0]">
+                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Navigation Links -->
+            <div class="flex items-center gap-6 text-white font-medium text-[15px]">
+                <button class="hidden md:block bg-white text-[#2874f0] px-10 py-[5px] rounded-sm shadow-sm cursor-pointer border border-transparent hover:border-[#2874f0]">Login</button>
+                <div class="hidden md:flex items-center gap-2 cursor-pointer font-medium group relative">
+                    More <i class="fa-solid fa-chevron-down text-[10px] group-hover:rotate-180 transition-transform"></i>
+                </div>
+                <div class="flex items-center gap-2 cursor-pointer font-medium">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="hidden md:inline">Cart</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-[1100px] mx-auto mt-4 px-2 md:px-0 flex flex-col md:flex-row gap-4 items-start min-h-[60vh]">
+        
+        <!-- Left Column (Cart Items) -->
+        <div class="w-full md:w-[70%] flex flex-col shadow-sm rounded-sm bg-transparent">
+            
+            <!-- Cart Header -->
+            <div class="bg-white flex items-center justify-between px-6 py-4 border-b border-[#f0f0f0] rounded-t-sm">
+                <h1 class="text-[18px] font-medium" id="cart-title">My Cart (0)</h1>
+                <div class="flex items-center gap-2 text-sm">
+                    <i class="fa-solid fa-location-dot text-[#2874f0]"></i>
+                    <span class="text-gray-600">Deliver to</span>
+                    <div class="border-b-2 border-[#2874f0] text-black font-medium pb-[1px]">382721</div>
+                </div>
+            </div>
+
+            <!-- Items Container -->
+            <div id="cart-items-container" class="bg-white flex flex-col">
+                <!-- Items will be injected here via JS -->
+            </div>
+
+            <!-- Place Order Bar -->
+            <div id="place-order-bar" class="bg-white px-6 py-4 shadow-[0_-2px_10px_0_rgba(0,0,0,.1)] sticky md:static bottom-0 z-40 flex justify-between items-center rounded-b-sm border-t border-[#f0f0f0]">
+                <div class="text-sm font-medium hidden md:block">
+                    <!-- Space for potential fast delivery text -->
+                </div>
+                <button class="bg-[#fb641b] text-white px-10 py-3 rounded-sm font-medium text-[16px] shadow-sm w-full md:w-auto min-w-[200px] tracking-wide hover:shadow-md hover:-translate-y-[1px] transition-all">
+                    PLACE ORDER
+                </button>
+            </div>
+
+            <!-- Empty State Container (Hidden by default) -->
+            <div id="empty-state" class="bg-white hidden flex-col items-center justify-center py-20 rounded-b-sm">
+                <img src="https://rukminim2.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" alt="Empty Cart" class="w-[250px] mb-6">
+                <h2 class="text-lg font-medium mb-2">Your cart is empty!</h2>
+                <p class="text-sm text-gray-500 mb-6">Add items to it now.</p>
+                <button class="bg-[#2874f0] text-white px-16 py-2.5 rounded-sm shadow-sm" onclick="window.location.reload()">Shop Now</button>
+            </div>
+
+        </div>
+
+        <!-- Right Column (Price Details) -->
+        <div class="w-full md:w-[30%] bg-white shadow-sm rounded-sm sticky top-[72px]" id="price-details-container">
+            <div class="text-[#878787] font-medium px-6 py-4 border-b border-[#f0f0f0] tracking-wide text-sm">
+                PRICE DETAILS
+            </div>
+            <div class="p-6 pb-4">
+                <div class="flex justify-between mb-4 text-[15px]">
+                    <span id="price-items-text">Price (0 items)</span>
+                    <span id="total-mrp">₹0</span>
+                </div>
+                <div class="flex justify-between mb-4 text-[15px]">
+                    <span>Discount</span>
+                    <span class="text-[#388e3c]" id="total-discount">- ₹0</span>
+                </div>
+                <div class="flex justify-between mb-5 text-[15px]">
+                    <span>Delivery Charges</span>
+                    <span class="text-[#388e3c]">Free</span>
+                </div>
+                
+                <div class="flex justify-between font-medium text-[18px] py-4 border-t border-b border-dashed border-[#e0e0e0] mb-4">
+                    <span>Total Amount</span>
+                    <span id="final-price">₹0</span>
+                </div>
+                
+                <div class="text-[#388e3c] font-medium text-[15px] tracking-tight" id="savings-message">
+                    You will save ₹0 on this order
+                </div>
+            </div>
+            
+            <!-- Safe and secure banner -->
+            <div class="px-6 py-4 flex items-center gap-3 text-xs text-[#878787] font-medium">
+                <i class="fa-solid fa-shield-halved text-[28px]"></i>
+                <p class="leading-tight">Safe and Secure Payments. Easy returns. 100% Authentic products.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Initial Cart Data
+        let cartData = [
+            {
+                id: 'p1',
+                title: 'Realme C53 (Champion Gold, 128 GB)',
+                specs: '6 GB RAM',
+                seller: 'MYSTIQUE ONLINE',
+                image: 'https://placehold.co/150x200/f1f3f6/2874f0?text=Realme+C53',
+                mrp: 12999,
+                price: 9999,
+                quantity: 1,
+                assured: true
+            },
+            {
+                id: 'p2',
+                title: 'Nothing Phone (2a) 5G (White, 256 GB)',
+                specs: '8 GB RAM',
+                seller: 'SuperComNet',
+                image: 'https://placehold.co/150x200/f1f3f6/2874f0?text=Nothing+2a',
+                mrp: 29999,
+                price: 25999,
+                quantity: 1,
+                assured: true
+            },
+            {
+                id: 'p3',
+                title: 'Apple 20W USB-C Power Adapter',
+                specs: 'White',
+                seller: 'RetailNet',
+                image: 'https://placehold.co/150x200/f1f3f6/2874f0?text=Adapter',
+                mrp: 1900,
+                price: 1599,
+                quantity: 2,
+                assured: true
+            }
+        ];
+
+        // Format currency to Indian Rupees
+        const formatCurrency = (amount) => {
+            return new Intl.NumberFormat('en-IN', {
+                style: 'currency',
+                currency: 'INR',
+                maximumFractionDigits: 0
+            }).format(amount);
+        };
+
+        // Calculate discount percentage
+        const calculateDiscountPercentage = (mrp, price) => {
+            return Math.round(((mrp - price) / mrp) * 100);
+        };
+
+        // Render Cart Items
+        const renderCart = () => {
+            const container = document.getElementById('cart-items-container');
+            const cartTitle = document.getElementById('cart-title');
+            const placeOrderBar = document.getElementById('place-order-bar');
+            const emptyState = document.getElementById('empty-state');
+            const priceDetails = document.getElementById('price-details-container');
+            
+            container.innerHTML = '';
+
+            let totalItems = 0;
+            
+            if (cartData.length === 0) {
+                cartTitle.innerText = 'My Cart';
+                placeOrderBar.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                emptyState.classList.add('flex');
+                priceDetails.classList.add('hidden');
+                return;
+            }
+
+            cartData.forEach((item, index) => {
+                totalItems += item.quantity;
+                const isLast = index === cartData.length - 1;
+                
+                const itemHTML = `
+                    <div class="flex flex-col sm:flex-row gap-6 p-6 border-b border-[#f0f0f0] transition-colors hover:bg-gray-50/50">
+                        
+                        <!-- Image and Quantity -->
+                        <div class="flex flex-col items-center gap-4 shrink-0 w-full sm:w-auto">
+                            <div class="w-[112px] h-[112px] flex items-center justify-center relative">
+                                <img src="${item.image}" alt="${item.title}" class="max-h-full max-w-full object-contain">
+                            </div>
+                            <div class="flex items-center gap-2 mt-2">
+                                <button onclick="updateQuantity('${item.id}', -1)" 
+                                        class="w-[28px] h-[28px] rounded-full border ${item.quantity === 1 ? 'border-gray-200 text-gray-300 bg-gray-50 cursor-not-allowed' : 'border-gray-300 text-black bg-white cursor-pointer hover:bg-gray-50'} flex items-center justify-center font-bold text-lg"
+                                        ${item.quantity === 1 ? 'disabled' : ''}>
+                                    -
+                                </button>
+                                <div class="w-11 h-7 border border-gray-300 flex items-center justify-center text-sm font-medium bg-white">
+                                    ${item.quantity}
+                                </div>
+                                <button onclick="updateQuantity('${item.id}', 1)" 
+                                        class="w-[28px] h-[28px] rounded-full border border-gray-300 bg-white flex items-center justify-center font-bold text-lg cursor-pointer hover:bg-gray-50">
+                                    +
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Product Details -->
+                        <div class="flex-1">
+                            <div class="flex flex-col gap-1.5">
+                                <a href="#" class="text-[16px] hover:text-[#2874f0] truncate block cursor-pointer transition-colors">${item.title}</a>
+                                <div class="text-[#878787] text-[14px]">${item.specs}</div>
+                                <div class="text-[#878787] text-[14px] flex items-center gap-2 mt-1">
+                                    Seller: ${item.seller}
+                                    ${item.assured ? '<span class="f-assured-badge"></span>' : ''}
+                                </div>
+                                
+                                <div class="flex items-center gap-3 mt-3">
+                                    <span class="text-[#878787] text-[14px] line-through">${formatCurrency(item.mrp)}</span>
+                                    <span class="text-[18px] font-medium text-[#212121]">${formatCurrency(item.price)}</span>
+                                    <span class="text-[#388e3c] text-[14px] font-medium">${calculateDiscountPercentage(item.mrp, item.price)}% Off</span>
+                                </div>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="flex items-center gap-6 mt-6 pt-2 font-medium text-[16px] uppercase">
+                                <button class="hover:text-[#2874f0] transition-colors text-[#212121]">Save for later</button>
+                                <button onclick="removeItem('${item.id}')" class="hover:text-[#2874f0] transition-colors text-[#212121]">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', itemHTML);
+            });
+
+            cartTitle.innerText = `My Cart (${totalItems})`;
+            calculateTotals(totalItems);
+        };
+
+        // Update Quantity
+        const updateQuantity = (id, change) => {
+            const item = cartData.find(item => item.id === id);
+            if (item) {
+                const newQty = item.quantity + change;
+                if (newQty >= 1) {
+                    item.quantity = newQty;
+                    renderCart();
+                }
+            }
+        };
+
+        // Remove Item
+        const removeItem = (id) => {
+            cartData = cartData.filter(item => item.id !== id);
+            renderCart();
+        };
+
+        // Calculate and Render Totals
+        const calculateTotals = (totalItems) => {
+            let totalMrp = 0;
+            let totalPrice = 0;
+
+            cartData.forEach(item => {
+                totalMrp += (item.mrp * item.quantity);
+                totalPrice += (item.price * item.quantity);
+            });
+
+            const totalDiscount = totalMrp - totalPrice;
+
+            document.getElementById('price-items-text').innerText = `Price (${totalItems} item${totalItems > 1 ? 's' : ''})`;
+            document.getElementById('total-mrp').innerText = formatCurrency(totalMrp);
+            document.getElementById('total-discount').innerText = `- ${formatCurrency(totalDiscount)}`;
+            document.getElementById('final-price').innerText = formatCurrency(totalPrice);
+            document.getElementById('savings-message').innerText = `You will save ${formatCurrency(totalDiscount)} on this order`;
+        };
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCart();
+        });
+    </script>
+</body>
+</html>
